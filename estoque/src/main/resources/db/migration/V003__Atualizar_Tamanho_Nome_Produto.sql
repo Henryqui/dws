@@ -1,0 +1,1 @@
+alter table produto Modify nomeproduto varchar(200);
