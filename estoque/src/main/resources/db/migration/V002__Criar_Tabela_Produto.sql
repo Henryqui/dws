@@ -1,8 +1,8 @@
 create table produto(
     id int not null primary key auto_increment,
-    idcategoria int not null,
+    categoria_id int not null,
     nomeproduto varchar(120),
-    preco decimal(3,2)
+    preco decimal(12,2)
 );
 
-alter table produto add constraint fk_categoria_produto foreign key(idcategoria) references categoria(id);
+alter table produto add constraint fk_categoria_produto foreign key(categoria_id) references categoria(id);
