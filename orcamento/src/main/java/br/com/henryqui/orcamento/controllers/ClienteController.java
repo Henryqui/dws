@@ -1,14 +1,17 @@
 package br.com.henryqui.orcamento.controllers;
 
 import br.com.henryqui.orcamento.model.Cliente;
+import br.com.henryqui.orcamento.model.Lancamento;
+import br.com.henryqui.orcamento.repositories.ClienteRepository;
+import br.com.henryqui.orcamento.repositories.LancamentoRepository;
 import br.com.henryqui.orcamento.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/clientes")
@@ -16,6 +19,16 @@ public class ClienteController {
 
     @Autowired
     private ClienteService clienteService;
+
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    @GetMapping()
+    public List<Cliente> listarTodosClientes(){
+        return clienteRepository.findAll(Sort.by("nome").ascending());
+    }
+
+
 
     @PostMapping()
     public ResponseEntity<Cliente> inserir(@RequestBody Cliente cliente) {

@@ -1,5 +1,6 @@
 package br.com.henryqui.orcamento.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class Cliente {
     @JoinColumn(name = "idmunicipio")
     private Municipio municipio;
 
+
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Lancamento> lancamentoList = new ArrayList<>();
 
