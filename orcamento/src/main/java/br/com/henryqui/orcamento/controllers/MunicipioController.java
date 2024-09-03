@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/municipios")
@@ -28,7 +29,12 @@ public class MunicipioController {
         return municipioRepository.findAll(Sort.by("nome").ascending());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Municipio> buscarPeloCodigo(@PathVariable int id){
+        Optional<Municipio> municipio = municipioRepository.findById(id);
+        return municipio.isPresent() ? ResponseEntity.ok(municipio.get()) : ResponseEntity.notFound().build();
 
+}
 
     @PostMapping()
     public ResponseEntity<Municipio> inserir(@RequestBody Municipio municipio) {
