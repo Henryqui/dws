@@ -42,4 +42,9 @@ public class CategoriaController {
 
     }
 
+    @DeleteMapping("/{id}")
+    public void remover(@PathVariable int id){
+        categoriaRepository.deleteById(id);
+    }
+
 }

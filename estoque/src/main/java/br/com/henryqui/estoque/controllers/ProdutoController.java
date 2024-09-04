@@ -42,4 +42,8 @@ public class ProdutoController {
 
     }
 
+    @DeleteMapping("/{id}")
+    public void remover(@PathVariable Long id){
+        produtoRepository.deleteById(id);
+    }
 }
