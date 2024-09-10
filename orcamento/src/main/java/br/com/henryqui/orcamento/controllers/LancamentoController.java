@@ -43,4 +43,11 @@ public class LancamentoController {
 
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable int id){
+        lancamentoRepository.deleteById(id);
+    }
+
+
 }

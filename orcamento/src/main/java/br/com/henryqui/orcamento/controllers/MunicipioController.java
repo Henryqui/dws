@@ -44,4 +44,10 @@ public class MunicipioController {
 
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable int id){
+        municipioRepository.deleteById(id);
+    }
+
 }

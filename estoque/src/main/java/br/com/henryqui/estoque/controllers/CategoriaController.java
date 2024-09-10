@@ -43,6 +43,7 @@ public class CategoriaController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remover(@PathVariable int id){
         categoriaRepository.deleteById(id);
     }
