@@ -11,6 +11,7 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
@@ -33,10 +34,28 @@ public class CategoriaRepositoryImpl implements CategoriaRepositoryQuery{
 
         TypedQuery<Categoria> query = manager.createQuery(criteria);
         adicionarRestrincoesPaginacao(query, pageable);
-        return null;
+        return new PageImpl<>(query.getResultList(), pageable, total(categoriaFilter));
+    }
+
+    private Long total(CategoriaFilter categoriaFilter) {
+        CriteriaBuilder builder = manager.getCriteriaBuilder();
+        CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
+        Root<Categoria> root = criteria.from(Categoria.class);
+
+        Predicate[] predicates = criarRestricoes(categoriaFilter, builder, root);
+        criteria.where(predicates);
+
+        criteria.select(builder.count(root));
+        return manager.createQuery(criteria).getSingleResult();
     }
 
     private void adicionarRestrincoesPaginacao(TypedQuery<Categoria> query, Pageable pageable) {
+        int paginaAtual = pageable.getPageNumber();
+        int totalRegistrosPorSize = pageable.getPageSize();
+        int primeiroRegistroPagina = paginaAtual * totalRegistrosPorSize;
+
+        query.setFirstResult(primeiroRegistroPagina);
+        query.setMaxResults(totalRegistrosPorSize);
     }
 
     private Predicate[] criarRestricoes(CategoriaFilter categoriaFilter, CriteriaBuilder builder, Root<Categoria> root){
