@@ -1,6 +1,5 @@
 package br.com.henryqui.estoque.controllers;
 
-import br.com.henryqui.estoque.model.Categoria;
 import br.com.henryqui.estoque.model.Produto;
 import br.com.henryqui.estoque.repositories.ProdutoRepository;
 import br.com.henryqui.estoque.services.ProdutoService;
@@ -23,7 +22,7 @@ public class ProdutoController {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    @GetMapping()
+    @GetMapping("/todas")
     public List<Produto> listarTodosProdutos(){
         return produtoRepository.findAll(Sort.by("nomeproduto").ascending());
     }
