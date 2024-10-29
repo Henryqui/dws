@@ -63,8 +63,8 @@ public class MunicipioRepositorioImpl implements MunicipioRepositoryQuery{
         List<Predicate> predicates = new ArrayList<>();
 
         if (!StringUtils.isEmpty(municipioFilter.getNome())){
-            predicates.add(builder.like(builder.lower(root.get("nome")), builder.like(builder.lower(root.get("estado")),
-                    "%" + municipioFilter.getNome().toLowerCase() + "%")));
+            predicates.add(builder.like(builder.lower(root.get("nome")),
+                    "%" + municipioFilter.getNome().toLowerCase() + "%"));
         }
         return predicates.toArray(new Predicate[predicates.size()]);
     }
