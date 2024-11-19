@@ -53,4 +53,10 @@ public class CategoriaController {
         categoriaRepository.deleteById(id);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Categoria> atualizar(@PathVariable int id, @RequestBody Categoria categoria){
+        Categoria categoriaSalva = categoriaService.Atualizar(id, categoria);
+        return ResponseEntity.ok(categoriaSalva);
+    }
+
 }
