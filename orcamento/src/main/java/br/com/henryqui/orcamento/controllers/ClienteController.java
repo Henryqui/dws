@@ -50,4 +50,11 @@ public class ClienteController {
         clienteRepository.deleteById(id);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Cliente> atualizar(@PathVariable int id, @RequestBody Cliente cliente){
+        Cliente clienteSalvo = clienteService.Atualizar(id, cliente);
+        return ResponseEntity.ok(clienteSalvo);
+    }
+
+
 }

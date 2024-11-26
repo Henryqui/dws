@@ -50,4 +50,11 @@ public class MunicipioController {
         municipioRepository.deleteById(id);
     }
 
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Municipio> atualizar(@PathVariable int id, @RequestBody Municipio municipio){
+        Municipio municipioSalvo = municipioService.Atualizar(id, municipio);
+        return ResponseEntity.ok(municipioSalvo);
+    }
+
 }

@@ -4,6 +4,7 @@ import br.com.henryqui.orcamento.model.Lancamento;
 import br.com.henryqui.orcamento.model.Municipio;
 import br.com.henryqui.orcamento.repositories.LancamentoRepository;
 import br.com.henryqui.orcamento.services.LancamentoService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -49,5 +50,10 @@ public class LancamentoController {
         lancamentoRepository.deleteById(id);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Lancamento> atualizar(@PathVariable int id, @RequestBody Lancamento lancamento){
+        Lancamento lancamentoSalvo = lancamentoService.Atualizar(id, lancamento);
+        return ResponseEntity.ok(lancamentoSalvo);
+    }
 
 }
